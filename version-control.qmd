@@ -1,0 +1,10 @@
+---
+title: "Version Control"
+format: html
+---
+
+Why important?
+What is it?
+Example
+
+Version Control for Open Science and Reproducibility
