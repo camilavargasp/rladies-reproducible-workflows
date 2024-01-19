@@ -8,3 +8,5 @@ What is it?
 Example
 
 Version Control for Open Science and Reproducibility
+
+![](images/phd_comics_final.png)
