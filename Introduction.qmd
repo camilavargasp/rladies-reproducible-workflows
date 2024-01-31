@@ -1,0 +1,57 @@
+---
+title: "Introduction"
+format: html
+editor: visual
+---
+
+# Introduction
+
+### What is computational reproducibility?
+
+The ability for another researcher to understand what you did for a paper - your data, methods and analyses are well - and repeat using the same data:
+
+Same data, same analysis, same result
+
+Different from replicability: another research team repeats the whole research process and gets the same results
+
+different data, same analysis (?), same result.
+
+### Why aim for reproducibility?
+
+1.  Increase trust in science
+
+2.  Increase in efficiency
+
+3.  Good return in investment - helps your future self
+
+4.  Others can build off what you've done.
+
+### [** **](https://www.nature.com/articles/s41597-022-01143-6/figures/8)Today's talk: How?
+
+The how is surprisingly hard!
+
+Figure below from [Trisovic et al. 2022 Scientific Data](https://www.nature.com/articles/s41597-022-01143-6)
+
+![](images/fig_code_breaking.png)
+
+*Success rate and errors before and after code cleaning. To objectively determine the effects of code cleaning, we subset the results that have explicit \"successes\" and errors while excluding the ones with TLE values as the outcome. As a result, the count of files in this figure is lower than the total count.*
+
+### Four facets of reproducibity 
+
+from [Utrecht University](https://utrechtuniversity.github.io/workshop-computational-reproducibility/)
+
+1.  Documentation
+
+    -   What do you need to start this project
+
+2.  Organization
+
+    -   What is the workflow?
+
+3.  Automation
+
+    -   Automated analyses
+
+4.  Dissemination
+
+    -   How do you spread and share your data and code
