@@ -1,5 +1,14 @@
 ---
 title: "Reproducible Workflows Workshop"
 format: html
+execute: 
+  eval: false
 ---
 
+{{< include /Introduction.qmd >}}
+
+{{< include /version-control.qmd >}}
+
+{{< include /organization.qmd >}}
+
+{{< include /Documentation.qmd >}}
