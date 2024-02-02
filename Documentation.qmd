@@ -1,0 +1,201 @@
+---
+title: "Documentation"
+format: html
+editor: visual
+---
+
+## What's in a project README?
+
+Your project's README file on GitHub introduces other researchers to your project repository; it is first thing someone will see when they encounter your project.
+
+It also helps YOU. Help your future self remember what you did and why.
+
+#### It should include:
+
+1.  Project name
+2.  Project description - what does the code do? why are you doing it?
+3.  How to get started
+4.  Development environment: what dependencies did you use and what version?
+5.  Workflow - how do you run the analysis?
+6.  Credits
+
+[Example](https://github.com/jinyizju/U.PhyloMaker) of a README that includes, project name, description, how to get started and examples showing how to run package functions
+
+## Writing reproducible code
+
+### Stick to a readable coding style
+
+Stick to "a-zA-Z0- 9\_" characters; avoid periods (except eg '.csv')
+
+The R package styleR package will style your code according to the [tidyverse style guide](https://style.tidyverse.org/).
+
+#### styler example
+
+The code below doesn't conform to the tidyverse style guide
+
+```{r}
+my_df <- data.frame(a = 1:3, b = c("a", "b", "c"))
+
+```
+
+Let's use styler to fix that
+
+![](images/styler%20example.png)
+
+styler takes this
+
+```{r}
+my_df=data.frame(a=1:3, b=c("a","b","c"))
+```
+
+and changes it to this
+
+```{r}
+my_df <- data.frame(a = 1:3, b = c("a", "b", "c"))
+
+```
+
+### Naming variables and functions
+
+Try to be concise and descriptive.
+
+**Functions**: use a verb and make it clear what the function does
+
+For example, instead of
+
+```{r}
+my_function <- function(a_number) a_number + 1
+```
+
+use
+
+```{r}
+add_one <- function(a_number) a_number + 1
+```
+
+**Data frames and variables**: use a noun and make it clear what it is
+
+Instead of:
+
+```{r}
+my_df <- data.frame(
+  plant = c("Claytonia virginica", "Erythronium americanum"),
+  abundance = c(100, 20)
+)
+```
+
+use
+
+```{r}
+plant_abundance <- data.frame(
+  plant = c("Claytonia virginica", "Erythronium americanum"),
+  abundance = c(100, 20)
+)
+```
+
+### Commenting code
+
+Help your future self! You want to make it easy for yourself (and others) to understand what you did and why.
+
+1.  Put a brief explanatory comment at the start of every program
+
+2.  Focus on why instead of what. Your code will tell the reader what it is doing, so focus on the reasoning behind your decisions.
+
+    ```{r}
+    #| echo: false
+options(tidyverse.quiet = T)
+library(tidyverse)
+
+    bees_df <- read.csv("data/bees_example.csv", header = T)
+    researcher_measurements <- read.csv("data/researcher_measurements_example.csv", header = T)
+    community_measurements <- read.csv("data/comscientist_measurements_example.csv", header = T)
+    
+  
+    ```
+
+Comments that tell us what the code does
+
+```{r}
+
+# join the measurement data with the bee species data
+# filter out NA scientific names 
+# and filter out any bee measurements from the species Lasioglossum incomplotum
+
+cleaned_df <- researcher_measurements %>% 
+  left_join(bees_df) %>%
+  filter(!is.na(scientificName)) %>% 
+  filter(scientificName != "Lasioglossum incompletum")
+
+```
+
+Comments that tell us why the code does what it does
+```{r}
+
+#for our analysis we only want to analyze bee specimens that are identified to species, so we'll join our measurement data with the bee species data and remove anything not identified to species. We'll also removed the specimens of the species Lasioglossum incompletum, since this is not noe of our focal speecies.
+cleaned_df <- researcher_measurements %>% 
+  left_join(bees_df) %>%
+  filter(!is.na(scientificName)) %>% 
+  filter(scientificName != "Lasioglossum incompletum")
+
+```
+
+### Decompose code into functions 
+
+1.  This minimizes errors (if you modify code in one part of the script and then forget to modify the code in another part that is doing the same thing)
+
+2.  Use these if you find yourself copying and pasting
+
+Let's return to our previous example.
+
+I had two sets of bee measurements, one from undergraduate researchers and one from community scientists. I needed to upload both datasets and clean them in the same way and I found myself copying and pasting:
+
+```{r}
+researchers_cleaned <- researcher_measurements %>% 
+  left_join(bees_df, by = "catalogNumber") %>%
+  filter(!is.na(scientificName)) %>% 
+  filter(scientificName != "Lasioglossum incompletum")
+
+community_cleaned <- community_measurements %>% 
+  left_join(bees_df, by = "catalogNumber") %>%
+  filter(!is.na(scientificName)) %>% 
+  filter(scientificName != "Lasioglossum incompletum")
+
+```
+
+So instead I wrote a function:
+```{r}
+clean_data = function(df){
+  df %>% left_join(bees_df, by = "catalogNumber") %>%
+    filter(!is.na(scientificName)) %>% 
+    filter(scientificName != "Lasioglossum incompletum") 
+}
+```
+
+and applied it to both my data sets:
+```{r}
+researchers_cleaned <- researcher_measurements %>%
+  clean_data
+
+community_cleaned <- community_measurements %>%
+  clean_data
+
+```
+
+Now if I need to change something, I don't need to worry about making that change in multiple lines of code.
+
+```{r}
+#I'm changing this function so that we also filter bees whose scientific names are "" in the dataset.
+clean_data = function(df){
+  df %>% left_join(ucsb, by = "catalogNumber") %>%
+    filter(!is.na(scientificName) & scientificName != "") %>% 
+    filter(scientificName != "Lasioglossum incompletum") 
+}
+```
+
+### Communicating with collaborators
+
+1.  Github issues -- good for communicating with collaborators.
+
+    ![](images/github%20issues.png)
+
+2.  Github wikis -- particularly for documentation; markdown file that you access through github
