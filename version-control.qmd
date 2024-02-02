@@ -8,7 +8,7 @@ format: html
 > "Version control, also known as source control, is the practice of tracking and managing changes to software code. Version control systems are software tools that help software teams manage changes to source code over time." ([Atlassian](https://www.atlassian.com/git/tutorials/what-is-version-control))
 
 
-<!-- TRANSITION: From sofware to research -->
+<!-- TRANSITION: From software to research -->
 
 "
 Data analysis, statistical research, and teaching statistics have at least one thing in common: these activities all produce many files! There are data files, source code, figures, tables, prepared reports, and much more. Most of these files evolve over the course of a project and often need to be shared with others, for reading or edits, as a project unfolds. Without explicit and structured management, project organization can easily descend into chaos, taking time away from the primary work and reducing the quality of the final product. This unhappy result can be avoided by repurposing tools and workflows from the software development world, namely, distributed version control." (Janny Bryan - Excuse me do you have a moment to talk aout version control)
