@@ -1,7 +1,6 @@
 ---
 title: "Documentation"
 format: html
-editor: visual
 ---
 
 ## What's in a project README?
@@ -103,14 +102,14 @@ Help your future self! You want to make it easy for yourself (and others) to und
 
     ```{r}
     #| echo: false
-options(tidyverse.quiet = T)
-library(tidyverse)
+    options(tidyverse.quiet = T)
+    library(tidyverse)
 
     bees_df <- read.csv("data/bees_example.csv", header = T)
     researcher_measurements <- read.csv("data/researcher_measurements_example.csv", header = T)
     community_measurements <- read.csv("data/comscientist_measurements_example.csv", header = T)
-    
-  
+
+      
     ```
 
 Comments that tell us what the code does
@@ -129,6 +128,7 @@ cleaned_df <- researcher_measurements %>%
 ```
 
 Comments that tell us why the code does what it does
+
 ```{r}
 
 #for our analysis we only want to analyze bee specimens that are identified to species, so we'll join our measurement data with the bee species data and remove anything not identified to species. We'll also removed the specimens of the species Lasioglossum incompletum, since this is not noe of our focal speecies.
@@ -163,6 +163,7 @@ community_cleaned <- community_measurements %>%
 ```
 
 So instead I wrote a function:
+
 ```{r}
 clean_data = function(df){
   df %>% left_join(bees_df, by = "catalogNumber") %>%
@@ -172,6 +173,7 @@ clean_data = function(df){
 ```
 
 and applied it to both my data sets:
+
 ```{r}
 researchers_cleaned <- researcher_measurements %>%
   clean_data

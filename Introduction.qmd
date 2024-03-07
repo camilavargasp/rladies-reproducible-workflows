@@ -1,7 +1,6 @@
 ---
 title: "Introduction"
 format: html
-editor: visual
 ---
 
 ### What is computational reproducibility?
