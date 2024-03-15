@@ -7,11 +7,11 @@ To achieve computational reproducibility we have to make sure to set up for succ
 
 Let's talk about organization.
 
-## File System Structure: Projects
+## File System Structure
 
 How do we tell our code where to find files?
 
-By stating a file path. For example if my code is tring to read `some_data.csv`
+By stating a file path. For example if my code is trying to read `some_data.csv`
 
 
 ```{r}
@@ -30,13 +30,14 @@ A better (and reproducible) way:
 **RProjects**
 
 -   Provides a self contained working directory that does not depend on the absolute location of your computer.
--   Bundles all your work within a working directory, pointing to relative locations within the project.
+-   Bundles all your work within a working directory, **pointing to relative locations within the project**.
 -   Within this centralize location we can organize all the files involved in our project (inputs data, scripts, outputs, etc.)
 
 
-When you create an RProject, it creates and `Rproj` file and a folder in your computer that will be the _working directory_ when your are working in your `Rproj`.
+When you create an RProject, it creates and `Rproj` file and **a folder in your computer that will be the _working directory_ ** when your are working in your `Rproj`.
 
 
+![](images/horst_rproj_swd.png)
 
 
 ::: callout-note
@@ -48,17 +49,81 @@ When you create an RProject, it creates and `Rproj` file and a folder in your co
 :::
 
 
-### Organizing file in you project
+### Organizing files in you project
+
+As we mentioned before, when you create an R Project, R creates a folder in your computer with the same name as you project, this folder is the working directory when you open the .Rpoj file. After creating a project, it is good practice to set up an organized structure of sub folders within you project. 
+
+Organization is personal and will vary depending on each project's need. The main point is to ensure that the structure of the folders (directories) and location of files in your project are consistent, informative and works for you. Having a consistent and organized project structure gets you a long way when it comes to reproducibility.**The location of files should be as informative as possible on what a file contains** The idea is to organize your research into a compendium that has all of the digital parts needed to replicate your analysis, like code, figures, the manuscript, and data access.
+
+Some common sub-folders (directories) within a basic R project structure are:
+
+::: columns
+
+::: {.column width="55%"}
+- `data`: where we store our data (often contains sub-directories for raw, processed, and metadata data)
+- `R` or `scripts`: contains scripts for cleaning or wrangling, etc. (some find this name misleading if their work has other scripts beyond the R programming language, in which case they call this directory `scripts`)
+- `plots` or `figs`: generated plots, graphs, and figures
+- `docs`: summaries or reports of analysis or other relevant project information
+
+Directory organization will vary from project to project, but the ultimate goal is to create a well organized project for both reproducibility and collaboration.
+:::
+
+::: {.column width="45%"}
+![](images/rproj-basic-organization.png)
+:::
+:::
+
+
+### One more thing about (reproducible) file paths
+
+Working within an R project is the first step to making my file paths reproducible given that all my work is contained within this project. However, pointing to things within my project (by pointing the correct file path) can still bring some issues when reproducing my work in different machines. For example from [R for Data Science](https://r4ds.had.co.nz/workflow-projects.html#paths-and-directories) (Grolemund & Wickham) 
+
+- Mac and Linux uses slashes (e.g. plots/diamonds.pdf) and Windows uses backslashes (e.g. plots\diamonds.pdf). R can work with either type (no matter what platform you’re currently using). But, \ backslashes mean something special to R, so we need to be careful when using them.
+
+- ~ is a convenient shortcut to your home directory on mac. Windows doesn’t really have the notion of a home directory, so it instead points to your documents directory.
+
+**How to make your file paths withing your project robust?**
+
+`here::here()`
+
+
+![](images/horst_here_function.png)
+
+The `here` package help us set unbreakable paths by setting the default working directory to be the project's directory and, you don't need to use either `\\` or `/` to indicate path to you file. Instead, each directory in your file path is written in quotation separated with a comma. For example if I'm wowing on a `.qmd` file that lives inside my `doc` folder and I want to read in data from `data/raw` it would look like this:
+
+```{r}
+#| eval: false
+
+raw_data <- read_csv(here::here("data", "raw", "my_raw_data.csv"))
+
+```
+
+The `here::here()` calls the function `here()` from the (`::`) package `here`.
+
+
+This comes particularly helpful when we have multiple folders in out project for different purposes.
+
+**In conclusion:** Using R Projects + `here()` allows you to have self contained and portable analysis with all file paths relative to the project. If you share your project folder, your colleague, friend, collaborator should be able to run all the scripts with no issues. 
+
+AKA.. Have a reproducible workflow!
 
 
 
+### Naming Conventions
+
+The documentation of your work started with good files names and file system organization. This means naming materials, variables, objects, etc, associated with your analysis in a
+
+-   meaningful, 
+-   concise, 
+-   informative, 
+-   consistent, and 
+-   code-friendly way. 
 
 
-## Naming Conventions
-"The simplest and most effective way of documenting your workflow – its inputs
-and outputs – is through good file system organisation, and informative, consistent
-naming of materials associated with your analysis. The name and location of files
-should be as informative as possible on what a file contains, why it exists, and how it relates to other files in the project"
+The name and location of files should be as informative as possible on what a file contains, why it exists, and how it relates to other files in the project (British Ecology Society). These principles apply to all files in your project, not just scripts and objects in your script. Good naming practices allows for a more intuitive workflow and helps with good data management practices.
+
+
+Clear naming structure allows us to understand the content and relationship among elements in your analysis. It also makes it easier to search for a specific input or output associated to a particular script or step in your research.
 
 :::callout-tip
 
@@ -67,6 +132,28 @@ you: in the same way that ISO 8601 puts the most significant unit (year) first s
 that alphabetical = chronological." – Hao Ye, UC San Diego
 
 :::
+
+#### Meaningful {.unnumbered}
+#### Concise {.unnumbered}
+#### Informative {.unnumbered}
+#### Consistent {.unnumbered}
+#### Code/Machine Friendly {.unnumbered}
+
+
+
+
+:::callout-tip
+## Informative README
+ 
+ "Include a README file to describe the project and provide some basic orientation
+ around project files. Good naming of files should take care of the rest, and
+ remember to describe the naming scheme in the README file." (BRirish..)
+
+:::
+
+
+
+
 
 ## Version Control: `Git`
 
