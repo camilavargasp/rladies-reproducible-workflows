@@ -3,7 +3,7 @@ title: "Organizing things for Successfull Reproducibility"
 format: html
 ---
 
-To achieve computational reproducibility we have to make sure to set up for success building robust workflows. The fundamental idea behind a reproducible analysis is a clean, repeatable script-based workflow. This will allow you to re-run your analysis as many times as needed before (and after) the completion of your project. The smoother and more automated the workflow, the easier, faster and more robust the process of repeating it will be (British Ecology Society).
+One of the first steps to achieve reproducibility is to set up a robust structure for our work. The fundamental idea behind a reproducible analysis is a clean, repeatable script-based workflow. This will allow you to re-run your analysis as many times as needed before (and after) the completion of your project. The smoother and more automated the workflow, the easier, faster and more robust the process of repeating it will be (British Ecology Society).
 
 Let's talk about organization.
 
@@ -29,7 +29,7 @@ A better (and reproducible) way:
 
 **RProjects**
 
--   Provides a self contained working directory that does not depend on the absolute location of your computer.
+-   Provides a self contained working directory that does not depend on the <ins>absolute location<ins> of your computer.
 -   Bundles all your work within a working directory, **pointing to relative locations within the project**.
 -   Within this centralize location we can organize all the files involved in our project (inputs data, scripts, outputs, etc.)
 
@@ -51,7 +51,7 @@ When you create an RProject, it creates and `Rproj` file and **a folder in your 
 
 ### Organizing files in you project
 
-As we mentioned before, when you create an R Project, R creates a folder in your computer with the same name as you project, this folder is the working directory when you open the .Rpoj file. After creating a project, it is good practice to set up an organized structure of sub folders within you project. 
+As we mentioned before, when you create an R Project, R creates a folder in your computer (note that you choose where this folde lives) with the same name as your R project, this folder is the working directory when you open the .Rpoj file. After creating a project, it is good practice to set up an organized structure of sub folders within you project. 
 
 Organization is personal and will vary depending on each project's need. The main point is to ensure that the structure of the folders (directories) and location of files in your project are consistent, informative and works for you. Having a consistent and organized project structure gets you a long way when it comes to reproducibility.**The location of files should be as informative as possible on what a file contains** The idea is to organize your research into a compendium that has all of the digital parts needed to replicate your analysis, like code, figures, the manuscript, and data access.
 
@@ -101,17 +101,19 @@ raw_data <- read_csv(here::here("data", "raw", "my_raw_data.csv"))
 The `here::here()` calls the function `here()` from the (`::`) package `here`.
 
 
-This comes particularly helpful when we have multiple folders in out project for different purposes.
+This is particularly helpful when we have multiple folders in out project for different purposes.
 
-**In conclusion:** Using R Projects + `here()` allows you to have self contained and portable analysis with all file paths relative to the project. If you share your project folder, your colleague, friend, collaborator should be able to run all the scripts with no issues. 
+:::callout-tip
+## In conclusion:
 
-AKA.. Have a reproducible workflow!
+Using R Projects + `here()` allows you to have self contained and portable analysis with all file paths relative to the project. If you share your project folder, your colleague, friend, collaborator should be able to run all the scripts with (hopefully) no issues. AKA.. We have a reproducible workflow.
 
+:::
 
 
 ### Naming Conventions
 
-The documentation of your work started with good files names and file system organization. This means naming materials, variables, objects, etc, associated with your analysis in a
+The documentation of your work starts with good files names and file system organization. This means naming materials, variables, objects, etc, associated with your analysis in a
 
 -   meaningful, 
 -   concise, 
@@ -134,9 +136,37 @@ that alphabetical = chronological." – Hao Ye, UC San Diego
 :::
 
 #### Meaningful {.unnumbered}
+- Names of variables, data frames, files (here on names) should not be too generic that the user or reader would need a definition or description to know what it contains.
+
+- Name should be specific and the easier to interpret the better.
+
+:::callout-warning
+## Bad vs Good filenames
+
+**Bad**
+- 01.R
+- fig1.png
+- file-1.csv
+
+
+**Better**
+- 01_download_data.R
+- fig1_scatterplot_bodytemperatur_metabolicactivity.png
+- ca_mean_annual_temp_by_county.csv
+
+
+:::
+
 #### Concise {.unnumbered}
-#### Informative {.unnumbered}
+
+- It's a balance between meaningful and conciseness, but it is better to be descriptive than not know what it is.
+
+- Longer names means more typing, longer coding but less effort in looking up what each variable is.
+
 #### Consistent {.unnumbered}
+
+#### Easy to order by default {.unnumbered}
+
 #### Code/Machine Friendly {.unnumbered}
 
 
