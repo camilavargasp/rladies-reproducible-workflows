@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.551">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Good Enough Practices for Scientific Reproducibility - Reproducible Workflows Workshop</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Documentation</li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/RLadies_hex.jpeg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+    <a href="https://github.com/camilavargasp/rladies-reproducible-workflows" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Sections</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./organization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Organization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./documentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Documentation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-computational-reproducibility" id="toc-what-is-computational-reproducibility" class="nav-link active" data-scroll-target="#what-is-computational-reproducibility">What is computational reproducibility?</a></li>
+  <li><a href="#why-aim-for-reproducibility" id="toc-why-aim-for-reproducibility" class="nav-link" data-scroll-target="#why-aim-for-reproducibility">Why aim for reproducibility?</a></li>
+  <li><a href="#how-do-you-make-your-analyses-reproducible" id="toc-how-do-you-make-your-analyses-reproducible" class="nav-link" data-scroll-target="#how-do-you-make-your-analyses-reproducible">How do you make your analyses reproducible?</a></li>
+  <li><a href="#four-facets-of-reproducibity" id="toc-four-facets-of-reproducibity" class="nav-link" data-scroll-target="#four-facets-of-reproducibity">Four facets of reproducibity</a></li>
+  <li><a href="#what-is-it-ans-why-is-it-important" id="toc-what-is-it-ans-why-is-it-important" class="nav-link" data-scroll-target="#what-is-it-ans-why-is-it-important">What is it ans why is it important?</a></li>
+  <li><a href="#how-does-it-work" id="toc-how-does-it-work" class="nav-link" data-scroll-target="#how-does-it-work">How does it work?</a></li>
+  <li><a href="#a-note-on-github" id="toc-a-note-on-github" class="nav-link" data-scroll-target="#a-note-on-github">A note on GitHub</a></li>
+  <li><a href="#version-control-for-open-science-and-reproducibility" id="toc-version-control-for-open-science-and-reproducibility" class="nav-link" data-scroll-target="#version-control-for-open-science-and-reproducibility">Version Control for Open Science and Reproducibility</a></li>
+  <li><a href="#file-system-structure" id="toc-file-system-structure" class="nav-link" data-scroll-target="#file-system-structure">File System Structure</a>
+  <ul class="collapse">
+  <li><a href="#organizing-files-in-you-project" id="toc-organizing-files-in-you-project" class="nav-link" data-scroll-target="#organizing-files-in-you-project">Organizing files in you project</a></li>
+  <li><a href="#one-more-thing-about-reproducible-file-paths" id="toc-one-more-thing-about-reproducible-file-paths" class="nav-link" data-scroll-target="#one-more-thing-about-reproducible-file-paths">One more thing about (reproducible) file paths</a></li>
+  <li><a href="#naming-conventions" id="toc-naming-conventions" class="nav-link" data-scroll-target="#naming-conventions">Naming Conventions</a></li>
+  </ul></li>
+  <li><a href="#version-control-git" id="toc-version-control-git" class="nav-link" data-scroll-target="#version-control-git">Version Control: <code>Git</code></a>
+  <ul class="collapse">
+  <li><a href="#github" id="toc-github" class="nav-link" data-scroll-target="#github">GitHub</a></li>
+  </ul></li>
+  <li><a href="#workflow-part-1-rstudio-git-github" id="toc-workflow-part-1-rstudio-git-github" class="nav-link" data-scroll-target="#workflow-part-1-rstudio-git-github">Workflow (part 1): RStudio + Git + GitHub</a></li>
+  <li><a href="#what-about-my-bigish-data---workflow-part-2" id="toc-what-about-my-bigish-data---workflow-part-2" class="nav-link" data-scroll-target="#what-about-my-bigish-data---workflow-part-2">What about my (bigish) data?? - Workflow (part 2)</a></li>
+  <li><a href="#whats-in-a-project-readme" id="toc-whats-in-a-project-readme" class="nav-link" data-scroll-target="#whats-in-a-project-readme">What’s in a project README?</a></li>
+  <li><a href="#writing-reproducible-code" id="toc-writing-reproducible-code" class="nav-link" data-scroll-target="#writing-reproducible-code">Writing reproducible code</a>
+  <ul class="collapse">
+  <li><a href="#stick-to-a-readable-coding-style" id="toc-stick-to-a-readable-coding-style" class="nav-link" data-scroll-target="#stick-to-a-readable-coding-style">Stick to a readable coding style</a></li>
+  <li><a href="#naming-variables-and-functions" id="toc-naming-variables-and-functions" class="nav-link" data-scroll-target="#naming-variables-and-functions">Naming variables and functions</a></li>
+  <li><a href="#commenting-code" id="toc-commenting-code" class="nav-link" data-scroll-target="#commenting-code">Commenting code</a></li>
+  <li><a href="#decompose-code-into-functions" id="toc-decompose-code-into-functions" class="nav-link" data-scroll-target="#decompose-code-into-functions">Decompose code into functions&nbsp;</a></li>
+  <li><a href="#communicating-with-collaborators" id="toc-communicating-with-collaborators" class="nav-link" data-scroll-target="#communicating-with-collaborators">Communicating with collaborators</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/camilavargasp/rladies-reproducible-workflows/edit/main/reproducible-workflows-workshop.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/camilavargasp/rladies-reproducible-workflows/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Documentation</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="what-is-computational-reproducibility" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-computational-reproducibility">What is computational reproducibility?</h3>
+<p>The ability for another researcher to understand what you did for a paper - your data, methods and analyses - and repeat using the same data.</p>
+<ul>
+<li><em>Same data, same analysis, same result</em></li>
+</ul>
+<p>The ability for you to repeat what you did!</p>
+<ul>
+<li><em>E.g., during the review process you may need to repeat your analysis workflow.</em></li>
+</ul>
+<p>Different from replicability: another research team repeats the whole research process and gets the same results</p>
+<ul>
+<li><em>different data -&gt; same result.</em></li>
+</ul>
+</section>
+<section id="why-aim-for-reproducibility" class="level3">
+<h3 class="anchored" data-anchor-id="why-aim-for-reproducibility">Why aim for reproducibility?</h3>
+<ol type="1">
+<li><p>Increase trust in science:</p>
+<ul>
+<li>Replicability crisis in pyschology</li>
+</ul></li>
+<li><p>Good return in investment - helps your future self</p>
+<ul>
+<li>(if you change a dataset, don’t need to spend hours trying to figure out what you did)</li>
+</ul></li>
+<li><p>Others can build off what you’ve done.</p></li>
+</ol>
+</section>
+<section id="how-do-you-make-your-analyses-reproducible" class="level3">
+<h3 class="anchored" data-anchor-id="how-do-you-make-your-analyses-reproducible">How do you make your analyses reproducible?</h3>
+<p>What we’ll talk about today</p>
+<p>The how is surprisingly hard!</p>
+<p>Figure below from <a href="https://www.nature.com/articles/s41597-022-01143-6">Trisovic et al.&nbsp;2022 Scientific Data</a></p>
+<p><img src="images/fig_code_breaking.png" class="img-fluid"></p>
+<p><em>Success rate and errors before and after code cleaning. To objectively determine the effects of code cleaning, we subset the results that have explicit “successes” and errors while excluding the ones with TLE values as the outcome. As a result, the count of files in this figure is lower than the total count.</em></p>
+<p><strong>Some reasons why it might be hard to make your analysis reproducible (examples from my own life):</strong></p>
+<ul>
+<li><p>Your R packages get updated</p></li>
+<li><p>Websites your R package was scraping become defunct (e.g., Taxonstand and TPL)</p>
+<p><img src="images/defunct_website_tpl.png" class="img-fluid"></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Taxonstand)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TPL</span>(<span class="st">'Taraxacum officinale'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Your working directory might be different if you change computers</p></li>
+<li><p>Disorganized code and analyses</p>
+<ul>
+<li>where is the raw data??</li>
+</ul></li>
+<li><p>Not automated</p>
+<ul>
+<li>how did I go from raw data to processed data?</li>
+</ul></li>
+<li><p>Poorly documented code and analyses:</p>
+<ul>
+<li>why did I update these names with The Plant List and these other names with World Flora Online?</li>
+</ul></li>
+</ul>
+</section>
+<section id="four-facets-of-reproducibity" class="level3">
+<h3 class="anchored" data-anchor-id="four-facets-of-reproducibity">Four facets of reproducibity</h3>
+<p>from <a href="https://utrechtuniversity.github.io/workshop-computational-reproducibility/">Utrecht University</a></p>
+<ol type="1">
+<li><p>Documentation</p>
+<ul>
+<li>What do you need to start this project</li>
+<li>why did</li>
+</ul></li>
+<li><p>Organization</p>
+<ul>
+<li>What is the workflow?</li>
+</ul></li>
+<li><p>Automation</p>
+<ul>
+<li>Automated analyses</li>
+</ul></li>
+<li><p>Dissemination</p>
+<ul>
+<li>How do you spread and share your data and code</li>
+</ul></li>
+</ol>
+</section>
+<section id="what-is-it-ans-why-is-it-important" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-it-ans-why-is-it-important">What is it ans why is it important?</h2>
+<blockquote class="blockquote">
+<p>“Version control, also known as source control, is the practice of tracking and managing changes to software code. Version control systems are software tools that help software teams manage changes to source code over time.” (<a href="https://www.atlassian.com/git/tutorials/what-is-version-control">Atlassian</a>)</p>
+</blockquote>
+<!-- TRANSITION: From software to research -->
+<p>” Data analysis, statistical research, and teaching statistics have at least one thing in common: these activities all produce many files! There are data files, source code, figures, tables, prepared reports, and much more. Most of these files evolve over the course of a project and often need to be shared with others, for reading or edits, as a project unfolds. Without explicit and structured management, project organization can easily descend into chaos, taking time away from the primary work and reducing the quality of the final product. This unhappy result can be avoided by repurposing tools and workflows from the software development world, namely, distributed version control.” (Janny Bryan - Excuse me do you have a moment to talk aout version control)</p>
+<p>“Anyone who has wrestled with multiple versions of a document or script named by appending the word “final” will know how quickly such naming conventions can escalate into absurdity. Version control provides a structured and transparent means of tracking changes to code and other files. It was designed for use in software development and it is equally applicable to scientific programming. By recording snapshots of a project at successive points in time, you can create a record of your project’s development while keeping your workspace clean. Version control also facilitates collaboration when used within project teams or when contributing to open source software projects” (Britich Ecology Society)</p>
+<p><img src="images/phd_comics_final.png" class="img-fluid"></p>
+<p>Version control software is designed to help you manage your file revisions. Version control software runs directly on your computer, allowing you to manage files within your local file system. You can also use version control software to interact with external copies of versioned files if you choose. (Britich Ecology Society)</p>
+<!-- Source: https://www.stephaniehicks.com/jhustatprogramming2023/posts/2023-11-07-version-control-part-1/-->
+<ul>
+<li><p>Version control is the lab notebook of the digital world. It is what professionals use to keep track of what they have done and to collaborate with other people. Every large software development project relies on it, and most programmers use it for their small jobs as well.</p></li>
+<li><p>It is not just for software: books, papers, small data sets, and anything that changes over time or needs to be shared can and should be stored in a version control system.</p></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“Tracking changes in documents with extended file formats such as Word or Excel documents is better done using their built-in revision control, although you can use version control software to store snapshots of these files.”</p>
+</div>
+</div>
+</section>
+<section id="how-does-it-work" class="level2">
+<h2 class="anchored" data-anchor-id="how-does-it-work">How does it work?</h2>
+<p>Git is what one type of a version control system for file management. The main idea is that as you (and your collaborators) work on a project, the software tracks, and records any changes made by anyone.</p>
+<ul>
+<li>Similar to the “track changes” features in Microsoft Word, but more rigorous, powerful, and scaled up to multiple files</li>
+<li>Great for solo or collaborative work</li>
+<li>Version control systems start with a base version of the document and then record changes you make each step of the way.</li>
+<li>For example, two users can make independent sets of changes on the same document.</li>
+<li>Unless multiple users make changes to the same section of the document - a conflict - you can incorporate two sets of changes into the same base document.</li>
+<li>It allows us to decide which changes will be made to the next version (each record of these changes is called a commit), and keeps useful metadata about them.</li>
+<li>The complete history of commits for a particular project and their metadata make up a repository.</li>
+<li>Repositories can be kept in sync across different computers, facilitating collaboration among different people.</li>
+</ul>
+<p><img src="images/bryan-2017-version-control-vs-filename.png" class="img-fluid"></p>
+<!-- Add a visual example on how you commit changes with commit message and how you can access that information down the line -->
+</section>
+<section id="a-note-on-github" class="level2">
+<h2 class="anchored" data-anchor-id="a-note-on-github">A note on GitHub</h2>
+<p>“We’ve introduced Git’s powerful structure for file management, so where does GitHub fit in? GitHub complements Git by providing a slick user interface and distribution mechanism for Git repositories. Git is the software you will use locally to record changes to a set of files. GitHub is a hosting service that provides a Git-aware home for such projects on the internet. These relationships are shown in Figure 2. GitHub is like DropBox or Google Drive, but more structured, powerful, and programmatic.” (Bryan 2017)</p>
+<!-- From LH lesson-->
+<p>So, What is GitHub?</p>
+<ul>
+<li>online platform and service built around Git</li>
+<li>provides a centralized hosting platform for Git repositories</li>
+<li>allows us to store, manage, and collaborate on their Git repositories in the cloud</li>
+<li>offers additional features on top of Git, such as a web-based interface, issue tracking, project management tools, pull requests, code review, and collaboration features</li>
+<li>enables easy sharing of code with others, facilitating collaboration and contribution to open source projects</li>
+<li>provides a social aspect, allowing users to follow projects, star repositories, and discover new code</li>
+</ul>
+<p><img src="images/bryan-2017-local-remote-repo.png" class="img-fluid"></p>
+</section>
+<section id="version-control-for-open-science-and-reproducibility" class="level2">
+<h2 class="anchored" data-anchor-id="version-control-for-open-science-and-reproducibility">Version Control for Open Science and Reproducibility</h2>
+<p>Keeping track of your work is not only useful for when you are currently working on a project or to keep thinks organized. It is also very powerful tool for documenting your work and making it transparent and reproducible.</p>
+<p>One of the first steps to achieve reproducibility is to set up a robust structure for our work. The fundamental idea behind a reproducible analysis is a clean, repeatable script-based workflow. This will allow you to re-run your analysis as many times as needed before (and after) the completion of your project. The smoother and more automated the workflow, the easier, faster and more robust the process of repeating it will be (British Ecology Society).</p>
+<p>Let’s talk about organization.</p>
+</section>
+<section id="file-system-structure" class="level2">
+<h2 class="anchored" data-anchor-id="file-system-structure">File System Structure</h2>
+<p>How do we tell our code where to find files?</p>
+<p>By stating a file path. For example if my code is trying to read <code>some_data.csv</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>some_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/home/vargas-poulsen/Documentes/Workshops/RLadies-SB/reproducible-workflows/some_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If I share my script with this file path to my colleagues, would they be able to open the file?</p>
+<p>Probably not, given that the file is unique to my machine with my user name and file system organization.</p>
+<p>A better (and reproducible) way:</p>
+<p><strong>RProjects</strong></p>
+<ul>
+<li>Provides a self contained working directory that does not depend on the <ins>absolute location<ins> of your computer.</ins></ins></li>
+<li>Bundles all your work within a working directory, <strong>pointing to relative locations within the project</strong>.</li>
+<li>Within this centralize location we can organize all the files involved in our project (inputs data, scripts, outputs, etc.)</li>
+</ul>
+<p>When you create an RProject, it creates and <code>Rproj</code> file and <strong>a folder in your computer that will be the <em>working directory</em> </strong> when your are working in your <code>Rproj</code>.</p>
+<p><img src="images/horst_rproj_swd.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Absolute paths vs relative paths
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>An <strong>absolute path</strong> always starts with the root of your file system and locates files from there. For example: <code>/home/vargas-poulsen/Documentes/Workshops/RLadies-SB/reproducible-workflows/data/some_data.csv</code></p></li>
+<li><p><strong>Relative paths</strong> start from some location in your file system that is below the root. Relative paths are combined with the path of that location to locate files on your system. R refer to the location where the relative path starts as our working directory. For example, if my project is named <code>repoducible-workflows</code>, then the relative path to <code>some_data.csv</code> will be <code>data/some_data.csv</code>.</p></li>
+</ul>
+</div>
+</div>
+<section id="organizing-files-in-you-project" class="level3">
+<h3 class="anchored" data-anchor-id="organizing-files-in-you-project">Organizing files in you project</h3>
+<p>As we mentioned before, when you create an R Project, R creates a folder in your computer (note that you choose where this folde lives) with the same name as your R project, this folder is the working directory when you open the .Rpoj file. After creating a project, it is good practice to set up an organized structure of sub folders within you project.</p>
+<p>Organization is personal and will vary depending on each project’s need. The main point is to ensure that the structure of the folders (directories) and location of files in your project are consistent, informative and works for you. Having a consistent and organized project structure gets you a long way when it comes to reproducibility.<strong>The location of files should be as informative as possible on what a file contains</strong> The idea is to organize your research into a compendium that has all of the digital parts needed to replicate your analysis, like code, figures, the manuscript, and data access.</p>
+<p>Some common sub-folders (directories) within a basic R project structure are:</p>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li><code>data</code>: where we store our data (often contains sub-directories for raw, processed, and metadata data)</li>
+<li><code>R</code> or <code>scripts</code>: contains scripts for cleaning or wrangling, etc. (some find this name misleading if their work has other scripts beyond the R programming language, in which case they call this directory <code>scripts</code>)</li>
+<li><code>plots</code> or <code>figs</code>: generated plots, graphs, and figures</li>
+<li><code>docs</code>: summaries or reports of analysis or other relevant project information</li>
+</ul>
+<p>Directory organization will vary from project to project, but the ultimate goal is to create a well organized project for both reproducibility and collaboration.</p>
+</div><div class="column" style="width:45%;">
+<p><img src="images/rproj-basic-organization.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="one-more-thing-about-reproducible-file-paths" class="level3">
+<h3 class="anchored" data-anchor-id="one-more-thing-about-reproducible-file-paths">One more thing about (reproducible) file paths</h3>
+<p>Working within an R project is the first step to making my file paths reproducible given that all my work is contained within this project. However, pointing to things within my project (by pointing the correct file path) can still bring some issues when reproducing my work in different machines. For example from <a href="https://r4ds.had.co.nz/workflow-projects.html#paths-and-directories">R for Data Science</a> (Grolemund &amp; Wickham)</p>
+<ul>
+<li><p>Mac and Linux uses slashes (e.g.&nbsp;plots/diamonds.pdf) and Windows uses backslashes (e.g.&nbsp;plots.pdf). R can work with either type (no matter what platform you’re currently using). But, &nbsp;backslashes mean something special to R, so we need to be careful when using them.</p></li>
+<li><p>~ is a convenient shortcut to your home directory on mac. Windows doesn’t really have the notion of a home directory, so it instead points to your documents directory.</p></li>
+</ul>
+<p><strong>How to make your file paths withing your project robust?</strong></p>
+<p><code>here::here()</code></p>
+<p><img src="images/horst_here_function.png" class="img-fluid"></p>
+<p>The <code>here</code> package help us set unbreakable paths by setting the default working directory to be the project’s directory and, you don’t need to use either <code>\\</code> or <code>/</code> to indicate path to you file. Instead, each directory in your file path is written in quotation separated with a comma. For example if I’m wowing on a <code>.qmd</code> file that lives inside my <code>doc</code> folder and I want to read in data from <code>data/raw</code> it would look like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>raw_data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"raw"</span>, <span class="st">"my_raw_data.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>here::here()</code> calls the function <code>here()</code> from the (<code>::</code>) package <code>here</code>.</p>
+<p>This is particularly helpful when we have multiple folders in out project for different purposes.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Concluding Remarks
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using R Projects + <code>here()</code> allows you to have self contained and portable analysis with all file paths relative to the project. If you share your project folder, your colleague, friend, collaborator should be able to run all the scripts with (hopefully) no issues. AKA.. We have a reproducible workflow.</p>
+</div>
+</div>
+</section>
+<section id="naming-conventions" class="level3">
+<h3 class="anchored" data-anchor-id="naming-conventions">Naming Conventions</h3>
+<p>The documentation of your work starts with good files names and file system organization. This means naming materials, variables, objects, etc, associated with your analysis in a</p>
+<ul>
+<li>meaningful,</li>
+<li>concise,</li>
+<li>informative,</li>
+<li>consistent, and</li>
+<li>code-friendly way.</li>
+</ul>
+<p>The name and location of files should be as informative as possible on what a file contains, why it exists, and how it relates to other files in the project (British Ecology Society). These principles apply to all files in your project, not just scripts and objects in your script. Good naming practices allows for a more intuitive workflow and helps with good data management practices.</p>
+<p>Clear naming structure allows us to understand the content and relationship among elements in your analysis. It also makes it easier to search for a specific input or output associated to a particular script or step in your research.</p>
+<section id="meaningful" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="meaningful">Meaningful</h4>
+<ul>
+<li><p>Names of variables, data frames, files (here on names) should not be too generic that the user or reader would need a definition or description to know what it contains.</p></li>
+<li><p>Name should be specific and the easier to interpret the better.</p></li>
+<li><p>Ensure file names also include informative description of file contents.</p></li>
+</ul>
+<blockquote class="blockquote">
+<p>“As a general rule of thumb, it’s better to prefer long, descriptive names that are easy to understand rather than concise names that are fast to type.” (Grolemund &amp; Wickham, R4DS)</p>
+</blockquote>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Bad vs Good filenames
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Bad</strong> - 01.R - fig1.png - file-1.csv</p>
+<p><strong>Better</strong> - 01_download_data.R - fig1_scatterplot_bodytemperatur_metabolicactivity.png - ca_mean_annual_temp_by_county.csv</p>
+</div>
+</div>
+</section>
+<section id="concise" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="concise">Concise</h4>
+<ul>
+<li><p>It’s a balance between meaningful and conciseness, but it is better to be descriptive than not know what it is.</p></li>
+<li><p>Longer names means more typing, longer coding but less effort in looking up what each variable is.</p></li>
+</ul>
+</section>
+<section id="consistent" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="consistent">Consistent</h4>
+<ul>
+<li><p>Keep names for the same thing completely identical. R is space and case sensitive, this means that “CA Temp” is completely different than “ca_temp”.</p></li>
+<li><p>Make you life easier and be consistent on how you name things across data frames. For example, if you have a column <code>date</code>, other data frames SHOULD NOT be called <code>Date_start</code>.</p></li>
+<li><p>Chose a naming convention and stick to it for better readability of your code. this_is_snake_case, (good for naming objects in your scripts), thisIsCamelCase, this-is-kebab.</p></li>
+</ul>
+</section>
+<section id="easy-to-order-by-default" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="easy-to-order-by-default">Easy to order by default</h4>
+<ul>
+<li><p>This is particular important for files names.</p></li>
+<li><p>Start the file name with the most generic aspect (but significant) and then go to the more specific.</p></li>
+</ul>
+<blockquote class="blockquote">
+<p>“Choose filenames so that alphabetical sorting will organise types of files for you: in the same way that ISO 8601 puts the most significant unit (year) first so that alphabetical = chronological.” – Hao Ye, UC San Diego</p>
+</blockquote>
+</section>
+<section id="codemachine-friendly" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="codemachine-friendly">Code/Machine Friendly</h4>
+<ul>
+<li><p>Avoid spaces, punctuation, accented characters and case sensitivity.</p></li>
+<li><p>More specifically, stick to “a-zA-Z0- 9_” characters. Use periods/full stops for file type only (i.e.&nbsp;.csv).</p></li>
+<li><p>Use delimiters to separate words. For example, snake_case_convention or kebab-case-convention. “_” and “-” are great delimiters, be consistent and don’t mix, this makes names easy to match and search programmatically and easy to analyse.</p></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Concluding Remarks
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is not the end of the world if you give something a bad name. And no work has to be perfect, but keeping this recommendations in mind could save you time in the long run and help search for specific files, objects with in a project easily.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="version-control-git" class="level2">
+<h2 class="anchored" data-anchor-id="version-control-git">Version Control: <code>Git</code></h2>
+<blockquote class="blockquote">
+<p>“Version control, also known as source control, is the practice of tracking and managing changes to software code. Version control systems are software tools that help software teams manage changes to source code over time.” (<a href="https://www.atlassian.com/git/tutorials/what-is-version-control">Atlassian</a>)</p>
+</blockquote>
+<section id="github" class="level3">
+<h3 class="anchored" data-anchor-id="github">GitHub</h3>
+</section>
+</section>
+<section id="workflow-part-1-rstudio-git-github" class="level2">
+<h2 class="anchored" data-anchor-id="workflow-part-1-rstudio-git-github">Workflow (part 1): RStudio + Git + GitHub</h2>
+</section>
+<section id="what-about-my-bigish-data---workflow-part-2" class="level2">
+<h2 class="anchored" data-anchor-id="what-about-my-bigish-data---workflow-part-2">What about my (bigish) data?? - Workflow (part 2)</h2>
+<ol type="1">
+<li>Google Drive (Box, SharePoint?) - RStudio - GitHub</li>
+<li>Zenodo (other repositories) - RStudio - GitHub</li>
+<li>Server - RStudio - GitHub</li>
+</ol>
+</section>
+<section id="whats-in-a-project-readme" class="level2">
+<h2 class="anchored" data-anchor-id="whats-in-a-project-readme">What’s in a project README?</h2>
+<p>Your project’s README file on GitHub introduces other researchers to your project repository; it is first thing someone will see when they encounter your project.</p>
+<p>It also helps YOU. Help your future self remember what you did and why.</p>
+<section id="it-should-include" class="level4">
+<h4 class="anchored" data-anchor-id="it-should-include">It should include:</h4>
+<ol type="1">
+<li>Project name</li>
+<li>Project description - what does the code do? why are you doing it?</li>
+<li>How to get started</li>
+<li>Development environment: what dependencies did you use and what version?</li>
+<li>Workflow - how do you run the analysis?</li>
+<li>Credits</li>
+</ol>
+<p><a href="https://github.com/jinyizju/U.PhyloMaker">Example</a> of a README that includes, project name, description, how to get started and examples showing how to run package functions</p>
+</section>
+</section>
+<section id="writing-reproducible-code" class="level2">
+<h2 class="anchored" data-anchor-id="writing-reproducible-code">Writing reproducible code</h2>
+<section id="stick-to-a-readable-coding-style" class="level3">
+<h3 class="anchored" data-anchor-id="stick-to-a-readable-coding-style">Stick to a readable coding style</h3>
+<p>Stick to “a-zA-Z0- 9_” characters; avoid periods (except eg ‘.csv’)</p>
+<p>The R package styleR package will style your code according to the <a href="https://style.tidyverse.org/">tidyverse style guide</a>.</p>
+<section id="styler-example" class="level4">
+<h4 class="anchored" data-anchor-id="styler-example">styler example</h4>
+<p>The code below doesn’t conform to the tidyverse style guide</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">b =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s use styler to fix that</p>
+<p><img src="images/styler example.png" class="img-fluid"></p>
+<p>styler takes this</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>my_df<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">a=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">b=</span><span class="fu">c</span>(<span class="st">"a"</span>,<span class="st">"b"</span>,<span class="st">"c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and changes it to this</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">b =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="naming-variables-and-functions" class="level3">
+<h3 class="anchored" data-anchor-id="naming-variables-and-functions">Naming variables and functions</h3>
+<p>Try to be concise and descriptive.</p>
+<p><strong>Functions</strong>: use a verb and make it clear what the function does</p>
+<p>For example, instead of</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>my_function <span class="ot">&lt;-</span> <span class="cf">function</span>(a_number) a_number <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>use</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>add_one <span class="ot">&lt;-</span> <span class="cf">function</span>(a_number) a_number <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Data frames and variables</strong>: use a noun and make it clear what it is</p>
+<p>Instead of:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">plant =</span> <span class="fu">c</span>(<span class="st">"Claytonia virginica"</span>, <span class="st">"Erythronium americanum"</span>),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">abundance =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">20</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>use</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plant_abundance <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">plant =</span> <span class="fu">c</span>(<span class="st">"Claytonia virginica"</span>, <span class="st">"Erythronium americanum"</span>),</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">abundance =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">20</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="commenting-code" class="level3">
+<h3 class="anchored" data-anchor-id="commenting-code">Commenting code</h3>
+<p>Help your future self! You want to make it easy for yourself (and others) to understand what you did and why.</p>
+<ol type="1">
+<li><p>Put a brief explanatory comment at the start of every program</p></li>
+<li><p>Focus on why instead of what. Your code will tell the reader what it is doing, so focus on the reasoning behind your decisions.</p></li>
+</ol>
+<p>Comments that tell us what the code does</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># join the measurement data with the bee species data</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># filter out NA scientific names </span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># and filter out any bee measurements from the species Lasioglossum incomplotum</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>cleaned_df <span class="ot">&lt;-</span> researcher_measurements <span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(bees_df) <span class="sc">%&gt;%</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(scientificName)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificName <span class="sc">!=</span> <span class="st">"Lasioglossum incompletum"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Comments that tell us why the code does what it does</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#for our analysis we only want to analyze bee specimens that are identified to species, so we'll join our measurement data with the bee species data and remove anything not identified to species. We'll also removed the specimens of the species Lasioglossum incompletum, since this is not noe of our focal speecies.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cleaned_df <span class="ot">&lt;-</span> researcher_measurements <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(bees_df) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(scientificName)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificName <span class="sc">!=</span> <span class="st">"Lasioglossum incompletum"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="decompose-code-into-functions" class="level3">
+<h3 class="anchored" data-anchor-id="decompose-code-into-functions">Decompose code into functions&nbsp;</h3>
+<ol type="1">
+<li><p>This minimizes errors (if you modify code in one part of the script and then forget to modify the code in another part that is doing the same thing)</p></li>
+<li><p>Use these if you find yourself copying and pasting</p></li>
+</ol>
+<p>Let’s return to our previous example.</p>
+<p>I had two sets of bee measurements, one from undergraduate researchers and one from community scientists. I needed to upload both datasets and clean them in the same way and I found myself copying and pasting:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>researchers_cleaned <span class="ot">&lt;-</span> researcher_measurements <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(bees_df, <span class="at">by =</span> <span class="st">"catalogNumber"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(scientificName)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificName <span class="sc">!=</span> <span class="st">"Lasioglossum incompletum"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>community_cleaned <span class="ot">&lt;-</span> community_measurements <span class="sc">%&gt;%</span> </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(bees_df, <span class="at">by =</span> <span class="st">"catalogNumber"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(scientificName)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificName <span class="sc">!=</span> <span class="st">"Lasioglossum incompletum"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>So instead I wrote a function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>clean_data <span class="ot">=</span> <span class="cf">function</span>(df){</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(bees_df, <span class="at">by =</span> <span class="st">"catalogNumber"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(scientificName)) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(scientificName <span class="sc">!=</span> <span class="st">"Lasioglossum incompletum"</span>) </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>and applied it to both my data sets:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>researchers_cleaned <span class="ot">&lt;-</span> researcher_measurements <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  clean_data</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>community_cleaned <span class="ot">&lt;-</span> community_measurements <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  clean_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now if I need to change something, I don’t need to worry about making that change in multiple lines of code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#I'm changing this function so that we also filter bees whose scientific names are "" in the dataset.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>clean_data <span class="ot">=</span> <span class="cf">function</span>(df){</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(ucsb, <span class="at">by =</span> <span class="st">"catalogNumber"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(scientificName) <span class="sc">&amp;</span> scientificName <span class="sc">!=</span> <span class="st">""</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(scientificName <span class="sc">!=</span> <span class="st">"Lasioglossum incompletum"</span>) </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="communicating-with-collaborators" class="level3">
+<h3 class="anchored" data-anchor-id="communicating-with-collaborators">Communicating with collaborators</h3>
+<ol type="1">
+<li><p>Github issues – good for communicating with collaborators.</p>
+<p><img src="images/github issues.png" class="img-fluid"></p></li>
+<li><p>Github wikis – particularly for documentation; markdown file that you access through github</p></li>
+</ol>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2023, Colleen Smith + Camila Vargas Poulsen</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/camilavargasp/rladies-reproducible-workflows/edit/main/reproducible-workflows-workshop.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/camilavargasp/rladies-reproducible-workflows/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with 💛 and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

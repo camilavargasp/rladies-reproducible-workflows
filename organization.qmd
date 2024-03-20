@@ -104,7 +104,7 @@ The `here::here()` calls the function `here()` from the (`::`) package `here`.
 This is particularly helpful when we have multiple folders in out project for different purposes.
 
 :::callout-tip
-## In conclusion:
+## Concluding Remarks
 
 Using R Projects + `here()` allows you to have self contained and portable analysis with all file paths relative to the project. If you share your project folder, your colleague, friend, collaborator should be able to run all the scripts with (hopefully) no issues. AKA.. We have a reproducible workflow.
 
@@ -127,18 +127,16 @@ The name and location of files should be as informative as possible on what a fi
 
 Clear naming structure allows us to understand the content and relationship among elements in your analysis. It also makes it easier to search for a specific input or output associated to a particular script or step in your research.
 
-:::callout-tip
 
-> "Choose filenames so that alphabetical sorting will organise types of files for
-you: in the same way that ISO 8601 puts the most significant unit (year) first so
-that alphabetical = chronological." – Hao Ye, UC San Diego
-
-:::
 
 #### Meaningful {.unnumbered}
 - Names of variables, data frames, files (here on names) should not be too generic that the user or reader would need a definition or description to know what it contains.
 
 - Name should be specific and the easier to interpret the better.
+
+- Ensure file names also include informative description of file contents.
+
+> "As a general rule of thumb, it’s better to prefer long, descriptive names that are easy to understand rather than concise names that are fast to type." (Grolemund & Wickham, R4DS)
 
 :::callout-warning
 ## Bad vs Good filenames
@@ -164,30 +162,44 @@ that alphabetical = chronological." – Hao Ye, UC San Diego
 - Longer names means more typing, longer coding but less effort in looking up what each variable is.
 
 #### Consistent {.unnumbered}
+- Keep names for the same thing completely identical. R is space and case sensitive, this means that "CA Temp" is completely different than "ca_temp".
+
+- Make you life easier and be consistent on how you name things across data frames. For example, if you have a column `date`, other data frames SHOULD NOT be called `Date_start`.
+
+- Chose a naming convention and stick to it for better readability of your code. this_is_snake_case, (good for naming objects in your scripts), thisIsCamelCase, this-is-kebab.
 
 #### Easy to order by default {.unnumbered}
+- This is particular important for files names.
+
+- Start the file name with the most generic aspect (but significant) and then go to the more specific.
+
+> "Choose filenames so that alphabetical sorting will organise types of files for
+you: in the same way that ISO 8601 puts the most significant unit (year) first so
+that alphabetical = chronological." – Hao Ye, UC San Diego
+
 
 #### Code/Machine Friendly {.unnumbered}
 
+- Avoid spaces, punctuation, accented characters and case sensitivity.
 
+- More specifically, stick to "a-zA-Z0- 9_" characters. Use periods/full stops for file
+ type only (i.e. .csv).
+ 
+ -  Use delimiters to separate words. For example, snake_case_convention or kebab-case-convention. "_" and "-" are great delimiters, be consistent and don't mix, this makes names easy to match and search programmatically and easy to analyse.
 
 
 :::callout-tip
-## Informative README
- 
- "Include a README file to describe the project and provide some basic orientation
- around project files. Good naming of files should take care of the rest, and
- remember to describe the naming scheme in the README file." (BRirish..)
+## Concluding Remarks
+It is not the end of the world if you give something a bad name. And no work has to be perfect, but keeping this recommendations in mind could save you time in the long run and help search for specific files, objects with in a project easily.
 
 :::
-
-
-
 
 
 ## Version Control: `Git`
 
 > "Version control, also known as source control, is the practice of tracking and managing changes to software code. Version control systems are software tools that help software teams manage changes to source code over time." ([Atlassian](https://www.atlassian.com/git/tutorials/what-is-version-control))
+
+
 
 
 ### GitHub

@@ -1,0 +1,15 @@
+{
+  "hash": "0433afa5b427869ee972f888743c7127",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Introduction\"\nformat: html\n---\n\n\n### What is computational reproducibility?\n\nThe ability for another researcher to understand what you did for a paper - your data, methods and analyses - and repeat using the same data.\n\n-   *Same data, same analysis, same result*\n\nThe ability for you to repeat what you did!\n\n-   *E.g., during the review process you may need to repeat your analysis workflow.*\n\nDifferent from replicability: another research team repeats the whole research process and gets the same results\n\n-   *different data -\\> same result.*\n\n### Why aim for reproducibility?\n\n1.  Increase trust in science:\n\n    -   Replicability crisis in pyschology\n\n2.  Good return in investment - helps your future self\n\n    -   (if you change a dataset, don't need to spend hours trying to figure out what you did)\n\n3.  Others can build off what you've done.\n\n### How do you make your analyses reproducible?\n\nWhat we'll talk about today\n\nThe how is surprisingly hard!\n\nFigure below from [Trisovic et al. 2022 Scientific Data](https://www.nature.com/articles/s41597-022-01143-6)\n\n![](images/fig_code_breaking.png)\n\n*Success rate and errors before and after code cleaning. To objectively determine the effects of code cleaning, we subset the results that have explicit \"successes\" and errors while excluding the ones with TLE values as the outcome. As a result, the count of files in this figure is lower than the total count.*\n\n**Some reasons why it might be hard to make your analysis reproducible (examples from my own life):**\n\n-   Your R packages get updated\n\n-   Websites your R package was scraping become defunct (e.g., Taxonstand and TPL)\n\n    ![](images/defunct_website_tpl.png)\n\n\n    ::: {.cell}\n    \n    ```{.r .cell-code}\n    library(Taxonstand)\n    TPL('Taraxacum officinale')\n    ```\n    :::\n\n\n-   Your working directory might be different if you change computers\n\n-   Disorganized code and analyses\n\n    -   where is the raw data??\n\n-   Not automated\n\n    -   how did I go from raw data to processed data?\n\n-   Poorly documented code and analyses:\n\n    -   why did I update these names with The Plant List and these other names with World Flora Online?\n\n### Four facets of reproducibity\n\nfrom [Utrecht University](https://utrechtuniversity.github.io/workshop-computational-reproducibility/)\n\n1.  Documentation\n\n    -   What do you need to start this project\n    -   why did\n\n2.  Organization\n\n    -   What is the workflow?\n\n3.  Automation\n\n    -   Automated analyses\n\n4.  Dissemination\n\n    -   How do you spread and share your data and code\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

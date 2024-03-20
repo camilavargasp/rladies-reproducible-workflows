@@ -50,6 +50,8 @@ Figure below from [Trisovic et al. 2022 Scientific Data](https://www.nature.com/
     ![](images/defunct_website_tpl.png)
 
     ```{r}
+#| eval: false
+    
     library(Taxonstand)
     TPL('Taraxacum officinale')
     ```
