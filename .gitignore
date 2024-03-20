@@ -49,3 +49,7 @@ po/*~
 rsconnect/
 
 /.quarto/
+
+# DS Store files
+.DS_Store
+*/.DS_Store
